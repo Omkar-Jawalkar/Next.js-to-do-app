@@ -11,7 +11,6 @@ const Todo = () => {
       bg="yellow.300"
       px={8}
       py={4}
-      m="4"
       sx={{
         _hover: {
           boxShadow: "dark-lg",

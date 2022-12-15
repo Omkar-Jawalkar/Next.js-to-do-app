@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import {
   Flex,
@@ -8,10 +8,17 @@ import {
   Input,
   Image,
   Text,
-  VStack,
-  Stack,
   Button,
   useColorMode,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
+  VStack,
   Box,
 } from "@chakra-ui/react";
 import {
@@ -23,6 +30,8 @@ import {
 import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
+  const btnRef = useRef();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const { data: session } = useSession();
   const [defaultImage, setDefaultImage] = useState(
@@ -88,24 +97,63 @@ const Navbar = () => {
         ) : (
           <SunIcon mx={2} onClick={toggleColorMode} boxSize={6} />
         )}
-        <HStack cursor={"pointer"} onClick={() => signIn()}>
-          <Image
-            borderRadius="full"
-            boxSize={8}
-            src={
-              !session
-                ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyTQNZR7oVHBW4Xl_5ENsDFHJC2SdC-pnxLw&usqp=CAU"
-                : session.user.image
-            }
-          />
+        {!session ? (
+          <Button onClick={() => signIn()}>Sign In</Button>
+        ) : (
+          <HStack ref={btnRef} onClick={onOpen} cursor={"pointer"}>
+            <Image
+              borderRadius="full"
+              boxSize={8}
+              src={
+                !session
+                  ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyTQNZR7oVHBW4Xl_5ENsDFHJC2SdC-pnxLw&usqp=CAU"
+                  : session.user.image
+              }
+            />
 
-          <Text display={{ base: "none", md: "block" }} whiteSpace={"nowrap"}>
-            {!session ? "SignIn" : session.user.name}
-          </Text>
-        </HStack>
+            <Text display={{ base: "none", md: "block" }} whiteSpace={"nowrap"}>
+              {!session ? "SignIn" : session.user.name}
+            </Text>
+          </HStack>
+        )}
       </HStack>
 
-      {/* This is Search bar */}
+      {/* Logout and search drawer */}
+
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        finalFocusRef={btnRef}
+        onClose={onClose}
+      >
+        <DrawerOverlay />
+
+        <DrawerContent>
+          <DrawerHeader>Account Settings</DrawerHeader>
+          <DrawerCloseButton />
+          <DrawerBody>
+            <VStack p="4" w="full">
+              <Text>Hey, {!session ? "" : session.user.name}</Text>
+              <Text>Thankyou for using me!!</Text>
+            </VStack>
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Button
+              variant="outline"
+              bg={"red.400"}
+              mr={3}
+              onClick={() => {
+                onClose();
+                signOut();
+              }}
+            >
+              {" "}
+              Logout{" "}
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </Flex>
   );
 };

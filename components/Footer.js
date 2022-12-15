@@ -4,14 +4,7 @@ import {
   Heading,
   Text,
   Link,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  useDisclosure,
+  
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
@@ -23,7 +16,7 @@ import {
 } from "react-icons/ai";
 
 const Footer = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const bgColor = useColorModeValue("gray.100", "gray.700");
 
 

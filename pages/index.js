@@ -14,7 +14,7 @@ export default function Home() {
         <AddButton />
       </Container>
       <Divider mt="8" mb="2" />
-      <Flex direction={{ base: "column", lg: "row" }} mx={4}>
+      <Flex direction={{ base: "column", lg: "row" }}>
         <HeroSection />
         <CompletedTasks />
       </Flex>

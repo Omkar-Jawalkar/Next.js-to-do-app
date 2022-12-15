@@ -12,10 +12,12 @@ const HeroSection = () => {
   const colSpan = useBreakpointValue({ base: 2, lg: 1 });
 
   return (
-    <Flex maxW={"4xl"} direction={"column"}>
-      <Heading mb="3">Tasks</Heading>
+    <Flex px={"4"} maxW={"4xl"} direction={"column"}>
+      <Heading pt="4" textAlign={"center"} mb="3">
+        Tasks
+      </Heading>
 
-      <SimpleGrid columns={2}>
+      <SimpleGrid mb={"6"} p="4" spacing={10} columns={2}>
         <GridItem colSpan={colSpan}>
           <Todo />
         </GridItem>
