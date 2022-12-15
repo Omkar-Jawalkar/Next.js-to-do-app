@@ -19,9 +19,12 @@ import {
   Select,
   HStack,
   FormControl,
+  useColorModeValue,
+  Textarea,
+  StylesProvider,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-
+import styles from "../styles/Home.module.css";
 const colorArray = [
   "red.300",
   "yellow.300",
@@ -38,6 +41,7 @@ const colorArray = [
 
 const AddButton = () => {
   const [myColor, setMyColor] = useState("yellow.300");
+  const inputSelectColor = useColorModeValue("gray.100", "gray.100");
   const addTask = () => {
     const color = colorArray[Math.floor(Math.random() * colorArray.length)];
     setMyColor(color);
@@ -69,7 +73,7 @@ const AddButton = () => {
           <ModalHeader>Add a task</ModalHeader>
           <ModalBody>
             <FormControl>
-              <SimpleGrid spacing={6} columns={2}>
+              <SimpleGrid spacing={4} columns={2}>
                 <GridItem colSpan={2}>
                   <Text mb={2} fontSize={"lg"}>
                     Title
@@ -78,26 +82,87 @@ const AddButton = () => {
                     variant={"filled"}
                     required
                     placeholder="Cook a meal..."
+                    focusBorderColor="none"
+                    bg={inputSelectColor}
+                    sx={{
+                      _hover: { bg: "gray.200" },
+                      _placeholder: { color: "gray.500" },
+                    }}
                   ></Input>
                 </GridItem>
                 <GridItem colSpan={2}>
                   <Text mb={2} fontSize={"lg"}>
                     Description
                   </Text>
-                  <Input placeholder="Cook a meal..."></Input>
+                  <Textarea
+                    variant={"filled"}
+                    placeholder="Watch a cooking video..."
+                    focusBorderColor="none"
+                    bg={inputSelectColor}
+                    sx={{
+                      _hover: { bg: "gray.200" },
+                      _placeholder: { color: "gray.500" },
+                    }}
+                  ></Textarea>
                 </GridItem>
                 <GridItem colSpan={1}>
-                  <Select placeholder="Select option">
-                    <option value="option1">Urgent</option>
-                    <option value="option3">Necessary</option>
-                    <option value="option3">Chill</option>
+                  <Text mb={2} fontSize={"lg"}>
+                    Priority
+                  </Text>
+                  <Select
+                    bg={inputSelectColor}
+                    focusBorderColor="none"
+                    variant={"filled"}
+                  >
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      value="option1"
+                    >
+                      Urgent
+                    </option>
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      bg={inputSelectColor}
+                      value="option3"
+                    >
+                      Necessary
+                    </option>
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      bg={inputSelectColor}
+                      value="option3"
+                    >
+                      Chill
+                    </option>
                   </Select>
                 </GridItem>
                 <GridItem colSpan={1}>
-                  <Select placeholder="Status">
-                    <option value="option2">Beginning</option>
-                    <option value="option2">Half Way</option>
-                    <option value="option3">At the End</option>
+                  <Text mb={2} fontSize={"lg"}>
+                    Status
+                  </Text>
+                  <Select
+                    bg={inputSelectColor}
+                    focusBorderColor="none"
+                    variant={"filled"}
+                  >
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      value="option2"
+                    >
+                      Beginning
+                    </option>
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      value="option2"
+                    >
+                      Half Way
+                    </option>
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      value="option3"
+                    >
+                      At the End
+                    </option>
                   </Select>
                 </GridItem>
               </SimpleGrid>

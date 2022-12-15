@@ -12,6 +12,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -23,15 +24,12 @@ import {
 
 const Footer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const bgColor = useColorModeValue("gray.100", "gray.700");
+
+
   return (
-    <VStack
-      py={4}
-      bg="gray.700"
-      px={4}
-      alignItems="center"
-      textAlign={"center"}
-    >
-      <Text  fontSize="lg">Made with ❤️ by Omkar Jawalkar </Text>
+    <VStack py={4} bg={bgColor} px={4} alignItems="center" textAlign={"center"}>
+      <Text fontSize="lg">Made with ❤️ by Omkar Jawalkar </Text>
       <HStack fontSize="2xl" spacing={4} p="3">
         <Link target={"_blank"} href="https://github.com/Omkar-Jawalkar">
           {" "}

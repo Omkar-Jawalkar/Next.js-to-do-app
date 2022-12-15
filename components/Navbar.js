@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import {
   Flex,
   Heading,
@@ -23,6 +24,21 @@ import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { data: session } = useSession();
+  const [defaultImage, setDefaultImage] = useState(
+    "https://printbusiness.co.uk/wp-content/uploads/2021/01/C4.png"
+  );
+  const handleImage = async () => {
+    if (session) {
+      if (session.user.image === null || session.user.image === undefined) {
+        setDefaultImage(
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyTQNZR7oVHBW4Xl_5ENsDFHJC2SdC-pnxLw&usqp=CAU"
+        );
+      } else {
+        setDefaultImage(session.user.image);
+      }
+    }
+  };
   return (
     <Flex
       px="3"
@@ -72,16 +88,19 @@ const Navbar = () => {
         ) : (
           <SunIcon mx={2} onClick={toggleColorMode} boxSize={6} />
         )}
-        <HStack>
+        <HStack cursor={"pointer"} onClick={() => signIn()}>
           <Image
             borderRadius="full"
             boxSize={8}
-            src="https://bit.ly/dan-abramov"
-            alt="Dan Abramov"
+            src={
+              !session
+                ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyTQNZR7oVHBW4Xl_5ENsDFHJC2SdC-pnxLw&usqp=CAU"
+                : session.user.image
+            }
           />
 
           <Text display={{ base: "none", md: "block" }} whiteSpace={"nowrap"}>
-            Omkar Jawalkar
+            {!session ? "SignIn" : session.user.name}
           </Text>
         </HStack>
       </HStack>

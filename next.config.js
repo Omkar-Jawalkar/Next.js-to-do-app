@@ -5,6 +5,6 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ["printbusiness.co.uk"],
+    domains: ["printbusiness.co.uk", "encrypted-tbn0.gstatic.com"],
   },
 };

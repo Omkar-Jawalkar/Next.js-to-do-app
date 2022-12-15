@@ -11,9 +11,8 @@ import {
 const HeroSection = () => {
   const colSpan = useBreakpointValue({ base: 2, lg: 1 });
 
-
   return (
-    <Flex direction={"column"}>
+    <Flex maxW={"4xl"} direction={"column"}>
       <Heading mb="3">Tasks</Heading>
 
       <SimpleGrid columns={2}>
