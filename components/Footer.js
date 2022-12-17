@@ -4,7 +4,6 @@ import {
   Heading,
   Text,
   Link,
-  
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
@@ -16,12 +15,18 @@ import {
 } from "react-icons/ai";
 
 const Footer = () => {
-
   const bgColor = useColorModeValue("gray.100", "gray.700");
 
-
   return (
-    <VStack py={4} bg={bgColor} px={4} alignItems="center" textAlign={"center"}>
+    <VStack
+      py={4}
+      bg={bgColor}
+      px={4}
+      w="full"
+      alignItems="center"
+      textAlign={"center"}
+      bottom={0}
+    >
       <Text fontSize="lg">Made with ❤️ by Omkar Jawalkar </Text>
       <HStack fontSize="2xl" spacing={4} p="3">
         <Link target={"_blank"} href="https://github.com/Omkar-Jawalkar">

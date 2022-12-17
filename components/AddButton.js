@@ -23,10 +23,13 @@ import {
   useColorModeValue,
   Textarea,
   StylesProvider,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 const colorArray = [
   "red.300",
   "yellow.300",
@@ -39,9 +42,19 @@ const colorArray = [
   "teal.300",
 ];
 
+import { useDispatch } from "react-redux";
+import { addTask, addTodo } from "../slices/todoDataSlice";
+
 // Function to add open a model to add a task
 
 const AddButton = () => {
+  //
+  const [spinnerState, setSpinnerState] = useState(false);
+
+  // Using use Toast Hook
+
+  const toast = useToast();
+
   const [myColor, setMyColor] = useState("yellow.300");
   const inputSelectColor = useColorModeValue("gray.100", "gray.100");
 
@@ -57,6 +70,11 @@ const AddButton = () => {
   const [priority, setPriority] = useState("Urgent");
   const [status, setStatus] = useState("Beginning");
   const [userEmail, setUserEmail] = useState("");
+  const [id, setId] = useState("");
+
+  // Using Redux dispatch
+
+  const dispatch = useDispatch();
 
   // Function to select color
 
@@ -68,12 +86,14 @@ const AddButton = () => {
     }
     const currTime = new Date().getDate();
     setTime(currTime);
+    setId(uuidv4());
     onOpen();
   };
 
   // Function to handle Submit
 
   const handleSubmit = async () => {
+    setSpinnerState(true);
     const todo = {
       title: title,
       description: description,
@@ -81,19 +101,46 @@ const AddButton = () => {
       status: status,
       time: time,
       userEmail: userEmail,
+      myColor: myColor,
+      id: id,
     };
 
     const response = await axios
-      .post("http://localhost:3000/api/add", todo)
+      .post("/api/add", todo)
       .then((res) => {
         console.log("Data sent to server");
-        return res.data;
+        return res;
       })
       .catch((err) => {
         console.log("There was some error", err);
       });
+    onClose();
 
-    console.log("I am response", response);
+    if (response.status === 200) {
+      setSpinnerState(false);
+
+      // Dispatching add todo to Redux
+
+      dispatch(addTodo(todo));
+      toast({
+        title: "Todo Added Successfully",
+        description: "Now you can see your todo in the list",
+        status: "success",
+        position: "top",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      setSpinnerState(false);
+      toast({
+        title: "Error Adding Todo",
+        description: "Please try again",
+        status: "error",
+        position: "top",
+        duration: 6000,
+        isClosable: true,
+      });
+    }
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -226,7 +273,16 @@ const AddButton = () => {
                   Cancel
                 </Button>
                 <Button onClick={handleSubmit} bg={"blue.500"}>
-                  Save
+                  Save{" "}
+                  {spinnerState && (
+                    <Spinner
+                      ml={2}
+                      thickness="1px"
+                      speed="0.65s"
+                      emptyColor="gray.200"
+                      size="sm"
+                    />
+                  )}
                 </Button>
               </HStack>
             </FormControl>
