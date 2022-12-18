@@ -94,6 +94,21 @@ const AddButton = () => {
 
   const handleSubmit = async () => {
     setSpinnerState(true);
+
+    if (description === "" || title === "") {
+      toast({
+        title: "Please fill complete details",
+        description:
+          "You may have not filled Description field or Title field ",
+        status: "warning",
+        position: "top",
+        duration: 6000,
+        isClosable: true,
+      });
+      setSpinnerState(false)
+      return; 
+    }
+
     const todo = {
       title: title,
       description: description,
@@ -141,6 +156,9 @@ const AddButton = () => {
         isClosable: true,
       });
     }
+
+    setDescription("");
+    setTitle("");
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();

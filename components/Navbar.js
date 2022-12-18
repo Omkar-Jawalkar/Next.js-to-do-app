@@ -98,10 +98,13 @@ const Navbar = () => {
           <SunIcon mx={2} onClick={toggleColorMode} boxSize={6} />
         )}
         {!session ? (
-          <Button onClick={() => {signIn();
-            
-          }}>Sign In</Button>
-
+          <Button
+            onClick={() => {
+              signIn();
+            }}
+          >
+            Sign In
+          </Button>
         ) : (
           <HStack ref={btnRef} onClick={onOpen} cursor={"pointer"}>
             <Image
@@ -137,7 +140,7 @@ const Navbar = () => {
           <DrawerBody>
             <VStack p="4" w="full">
               <Text>Hey, {!session ? "" : session.user.name}</Text>
-              <Text>Thankyou for using me!!</Text>
+              <Text>Thankyou for using me!!🤗</Text>
             </VStack>
           </DrawerBody>
 

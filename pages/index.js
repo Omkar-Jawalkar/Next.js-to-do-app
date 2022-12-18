@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Flex } from "@chakra-ui/react";
+import { Box, Container, Divider, Flex, VStack } from "@chakra-ui/react";
 import React from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { getSession } from "next-auth/react";
@@ -10,8 +10,11 @@ import CompletedTasks from "../components/CompletedTasks";
 import Footer from "../components/Footer";
 import { useDispatch } from "react-redux";
 import { initializeTodo } from "../slices/todoDataSlice";
+import { useSession } from "next-auth/react";
+import Signin from "../components/Signin";
 
 export default function Home({ todos }) {
+  const { data: session } = useSession();
   const dispatch = useDispatch();
   if (todos) {
     dispatch(initializeTodo(todos.arr));
@@ -21,15 +24,24 @@ export default function Home({ todos }) {
     <>
       <Navbar />
 
-      <Container mt="5" centerContent>
-        <AddButton />
-      </Container>
-      <Divider mt="8" mb="2" />
-      <Flex direction={{ base: "column", lg: "row" }}>
-        <HeroSection todos={todos} />
-        <CompletedTasks />
-      </Flex>
-      <Footer />
+      {!session ? (
+        <Container my={{ base: "100px", lg: "115px" }} maxW={"container.md"}>
+          <Signin />
+        </Container>
+      ) : (
+        <>
+          <Container mt="5" centerContent>
+            <AddButton />
+          </Container>
+          <Divider mt="8" mb="2" />
+          <Flex direction={{ base: "column", lg: "row" }}>
+            <HeroSection todos={todos} />
+            <CompletedTasks />
+          </Flex>
+        </>
+      )}
+
+      {/* <Footer /> */}
     </>
   );
 }
@@ -60,4 +72,10 @@ export async function getServerSideProps({ req }) {
       }, // will be passed to the page component as props
     };
   }
+
+  return {
+    props: {
+      todos: {},
+    }, // will be passed to the page component as props
+  };
 }
