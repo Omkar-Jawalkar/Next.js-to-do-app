@@ -37,6 +37,10 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
+// Draggable
+
+import { useDrag } from "react-dnd";
+
 const Todo = ({
   id,
   description,
@@ -47,6 +51,16 @@ const Todo = ({
   myColor,
   email,
 }) => {
+  // Drag
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "todo",
+    item: { id: id, email: email },
+    collect: (moniter) => ({
+      isDragging: !!moniter.isDragging(),
+    }),
+  }));
+
   // toast import
   const toast = useToast();
   const inputSelectColor = useColorModeValue("gray.100", "gray.100");
@@ -165,6 +179,7 @@ const Todo = ({
 
   return (
     <Box
+      ref={drag}
       borderRadius="lg"
       boxShadow={"base"}
       color={"gray.800"}

@@ -1,5 +1,7 @@
 import { Box, Container, Divider, Flex, VStack } from "@chakra-ui/react";
 import React from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { getSession } from "next-auth/react";
 import db from "../firebase/clientApp";
@@ -34,10 +36,12 @@ export default function Home({ todos }) {
             <AddButton />
           </Container>
           <Divider mt="8" mb="2" />
-          <Flex direction={{ base: "column", lg: "row" }}>
-            <HeroSection todos={todos} />
-            <CompletedTasks />
-          </Flex>
+          <DndProvider backend={HTML5Backend}>
+            <Flex direction={{ base: "column", lg: "row" }}>
+              <HeroSection todos={todos} />
+              <CompletedTasks />
+            </Flex>
+          </DndProvider>
         </>
       )}
 

@@ -6,8 +6,11 @@ import { useDispatch } from "react-redux";
 import db from "../firebase/clientApp";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useDrop } from "react-dnd";
 import { checkTodo, deleteTodo } from "../slices/todoDataSlice";
 const CompletedTodo = (props) => {
+  // Drop
+
   const { data: session } = useSession();
   // Toast import
 
@@ -26,6 +29,7 @@ const CompletedTodo = (props) => {
         completeStatus: false,
       });
       dispatch(checkTodo({ id: props.todo.id }));
+
       toast({
         title: "Undo Successfully",
         description: " Now you can complete this todo again",
