@@ -7,6 +7,7 @@ import {
   SimpleGrid,
   GridItem,
   Flex,
+  Tooltip,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 

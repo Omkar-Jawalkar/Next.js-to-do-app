@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Heading, HStack, Text, Toast, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  HStack,
+  Text,
+  Toast,
+  useToast,
+  Tooltip,
+} from "@chakra-ui/react";
 import { DeleteIcon, RepeatIcon } from "@chakra-ui/icons";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
@@ -72,47 +80,58 @@ const CompletedTodo = (props) => {
   };
 
   return (
-    <Box
-      p="4"
-      borderRadius={"lg"}
-      color={"gray.800"}
-      justifyContent={"center"}
-      bg={props.todo.myColor}
-      filter="auto"
-      brightness="70%"
-      sx={{
-        _hover: {
-          filter: "auto",
-          brightness: "100%",
-        },
-      }}
-      BoxShadow={"xl"}
-      position={"relative"}
-      px={"10"}
-    >
-      <Heading mb={"2"} filter="auto" brightness="100%">
-        {props.todo.title}
-      </Heading>
-      <Text>{props.todo.description}</Text>
-      <HStack
-        spacing={"3"}
-        right={"6"}
-        top={"6"}
-        fontSize={"2xl"}
-        pos={"absolute"}
+    <Tooltip label="I'm Completed🙇✔️" placement="top-start">
+      <Box
+        p="4"
+        borderRadius={"lg"}
+        color={"gray.800"}
+        justifyContent={"center"}
+        bg={props.todo.myColor}
+        filter="auto"
+        brightness="70%"
+        sx={{
+          _hover: {
+            filter: "auto",
+            brightness: "100%",
+          },
+        }}
+        BoxShadow={"xl"}
+        position={"relative"}
+        px={"10"}
       >
-        <RepeatIcon
-          cursor={"pointer"}
-          onClick={repeatHandle}
-          color={"purple.600"}
-        />
-        <DeleteIcon
-          cursor={"pointer"}
-          onClick={deleteHandle}
-          color={"red.600"}
-        />
-      </HStack>
-    </Box>
+        <Heading
+          overflow={"hidden"}
+          whiteSpace={"nowrap"}
+          textOverflow={"ellipsis"}
+          // pb={2}
+          w="40"
+          mb={"2"}
+          filter="auto"
+          brightness="100%"
+        >
+          {props.todo.title}
+        </Heading>
+        <Text>{props.todo.description}</Text>
+        <HStack
+          spacing={"3"}
+          right={"6"}
+          top={"6"}
+          fontSize={"2xl"}
+          pos={"absolute"}
+        >
+          <RepeatIcon
+            cursor={"pointer"}
+            onClick={repeatHandle}
+            color={"purple.600"}
+          />
+          <DeleteIcon
+            cursor={"pointer"}
+            onClick={deleteHandle}
+            color={"red.600"}
+          />
+        </HStack>
+      </Box>
+    </Tooltip>
   );
 };
 
