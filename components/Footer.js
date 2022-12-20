@@ -25,8 +25,9 @@ const Footer = () => {
       w="full"
       alignItems="center"
       textAlign={"center"}
-      bottom={0}
-      pos="fixed"
+      position="relative"
+      mt={"4xl"}
+      bottom="0"
     >
       <Text fontSize="lg">Made with ❤️ by Omkar Jawalkar </Text>
       <HStack fontSize="2xl" spacing={4} p="3">

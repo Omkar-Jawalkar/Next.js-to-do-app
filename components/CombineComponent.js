@@ -10,7 +10,10 @@ const CombineComponent = ({ todos }) => {
   return (
     <>
       {todoInfo.length == 0 ? (
-        <Container centerContent>
+        <Container
+          minH={{ base: "320px", lg: "320px", xl: "320px" }}
+          centerContent
+        >
           <Heading mt="10" mb="5" textAlign="center">
             Hey, I see you haven't added any tasks yet 🙆‍♂️
           </Heading>
@@ -20,7 +23,10 @@ const CombineComponent = ({ todos }) => {
           </Text>
         </Container>
       ) : (
-        <Flex direction={{ base: "column", lg: "row" }}>
+        <Flex
+          minH={{ base: "full", lg: "400px", xl: "400px" }}
+          direction={{ base: "column", lg: "row" }}
+        >
           <HeroSection todos={todos} />
           <CompletedTasks />
         </Flex>

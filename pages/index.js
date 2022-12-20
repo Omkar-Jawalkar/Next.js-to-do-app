@@ -22,13 +22,13 @@ export default function Home({ todos }) {
   if (todos) {
     dispatch(initializeTodo(todos.arr));
   }
-  
+
   return (
-    <>
+    <Box pos={"absolute"} w="full">
       <Navbar />
 
       {!session ? (
-        <Container my={{ base: "100px", lg: "115px" }} maxW={"container.md"}>
+        <Container my={{ base: "100px", lg: "120px" }} maxW={"container.md"}>
           <Signin />
         </Container>
       ) : (
@@ -42,9 +42,10 @@ export default function Home({ todos }) {
           </DndProvider>
         </>
       )}
-
-      {/* <Footer /> */}
-    </>
+      <Box>
+        <Footer />
+      </Box>
+    </Box>
   );
 }
 

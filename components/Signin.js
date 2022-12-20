@@ -13,7 +13,7 @@ import {
 import { useSession, signIn, signOut } from "next-auth/react";
 const Signin = () => {
   return (
-    <Card my={"7"} mx={"6"}>
+    <Card my={"8"} mx={"6"}>
       <CardHeader textAlign={"center"}>
         <Heading>Hey, I'm glad you are here🥳🎉</Heading>
       </CardHeader>
