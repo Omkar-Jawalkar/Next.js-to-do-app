@@ -10,10 +10,11 @@ import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import CompletedTasks from "../components/CompletedTasks";
 import Footer from "../components/Footer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initializeTodo } from "../slices/todoDataSlice";
 import { useSession } from "next-auth/react";
 import Signin from "../components/Signin";
+import CombineComponent from "../components/CombineComponent";
 
 export default function Home({ todos }) {
   const { data: session } = useSession();
@@ -21,7 +22,7 @@ export default function Home({ todos }) {
   if (todos) {
     dispatch(initializeTodo(todos.arr));
   }
-
+  
   return (
     <>
       <Navbar />
@@ -37,10 +38,7 @@ export default function Home({ todos }) {
           </Container>
           <Divider mt="8" mb="2" />
           <DndProvider backend={HTML5Backend}>
-            <Flex direction={{ base: "column", lg: "row" }}>
-              <HeroSection todos={todos} />
-              <CompletedTasks />
-            </Flex>
+            <CombineComponent todos={todos} />
           </DndProvider>
         </>
       )}

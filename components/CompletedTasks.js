@@ -1,5 +1,14 @@
 import React from "react";
-import { Box, Center, Flex, Heading, VStack, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  VStack,
+  useToast,
+  Container,
+  Text,
+} from "@chakra-ui/react";
 import CompletedTodo from "./CompletedTodo";
 import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
@@ -11,6 +20,7 @@ import { useDispatch } from "react-redux";
 const CompletedTasks = () => {
   const dispatch = useDispatch();
   const myTodos = useSelector((state) => state.todoData.value);
+  const result = myTodos.filter((todo) => todo.completeStatus !== false);
   const toast = useToast();
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "todo",
@@ -59,13 +69,26 @@ const CompletedTasks = () => {
         <Heading textAlign={"center"}>
           <Center>Tasks Completed</Center>
         </Heading>
-        {myTodos.map(
-          (todo) =>
-            todo.completeStatus && (
-              <Box w="full">
-                <CompletedTodo todo={todo} />
-              </Box>
-            )
+
+        {result.length === 0 ? (
+          <Container w={"full"} centerContent>
+            <VStack>
+              <Text fontSize={"xl"} my="2">
+                Come on, you can do it 🏆💯
+              </Text>
+            </VStack>
+          </Container>
+        ) : (
+          <>
+            {result.map(
+              (todo) =>
+                todo.completeStatus && (
+                  <Box w="full">
+                    <CompletedTodo todo={todo} />
+                  </Box>
+                )
+            )}
+          </>
         )}
       </VStack>
     </Flex>
