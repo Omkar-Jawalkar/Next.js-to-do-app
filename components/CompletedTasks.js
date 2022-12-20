@@ -83,7 +83,7 @@ const CompletedTasks = () => {
             {result.map(
               (todo) =>
                 todo.completeStatus && (
-                  <Box w="full">
+                  <Box key={todo.id} w="full">
                     <CompletedTodo todo={todo} />
                   </Box>
                 )

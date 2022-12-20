@@ -61,10 +61,11 @@ const Navbar = () => {
         <Image
           w="8"
           h="8"
+          alt="logo"
           src="https://printbusiness.co.uk/wp-content/uploads/2021/01/C4.png"
         ></Image>
         <Heading whiteSpace={"nowrap"} size="md">
-          To Do List
+          Activity Manager
         </Heading>
       </HStack>
 
@@ -110,6 +111,7 @@ const Navbar = () => {
             <Image
               borderRadius="full"
               boxSize={8}
+              alt="profile"
               src={
                 !session
                   ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyTQNZR7oVHBW4Xl_5ENsDFHJC2SdC-pnxLw&usqp=CAU"
