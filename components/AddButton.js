@@ -25,10 +25,12 @@ import {
   StylesProvider,
   useToast,
   Spinner,
+  Container,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
+import SearchBar from "./SearchBar";
 import { v4 as uuidv4 } from "uuid";
 const colorArray = [
   "red.300",
@@ -105,8 +107,8 @@ const AddButton = () => {
         duration: 6000,
         isClosable: true,
       });
-      setSpinnerState(false)
-      return; 
+      setSpinnerState(false);
+      return;
     }
 
     const todo = {
@@ -164,6 +166,17 @@ const AddButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
+      <Container
+        my="2"
+        mx={"4"}
+        h={"50px"}
+        display={{ base: "inline-block", md: "none" }}
+        centerContent
+        w={"full"}
+      >
+        {session && <SearchBar placeholder={"Search a task"} />}
+      </Container>
+
       <Button
         color="gray.800"
         bg={myColor}

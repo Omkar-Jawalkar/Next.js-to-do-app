@@ -42,7 +42,7 @@ export default function Home({ todos }) {
           </DndProvider>
         </>
       )}
-      <Box>
+      <Box pos={"relative"} bottom="0">
         <Footer />
       </Box>
     </Box>

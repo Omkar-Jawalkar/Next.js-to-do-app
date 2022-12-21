@@ -263,7 +263,7 @@ const Todo = ({
         </Heading>
         <Box pb="1">
           <LightMode>
-            <Badge mx={"1"} colorScheme={priorityColor}>
+            <Badge mx={{ base: "0", md: "1" }} colorScheme={priorityColor}>
               {priority}
             </Badge>
           </LightMode>

@@ -80,6 +80,7 @@ const Navbar = () => {
       </FormControl>
 
       <HStack justifyContent="start">
+        {/* <Search2Icon mx="1" boxSize={5} /> */}
         {colorMode === "light" ? (
           <MoonIcon mx={2} onClick={toggleColorMode} boxSize={6} />
         ) : (
