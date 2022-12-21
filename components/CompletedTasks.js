@@ -73,7 +73,7 @@ const CompletedTasks = () => {
         {result.length === 0 ? (
           <Container w={"full"} centerContent>
             <VStack>
-              <Text fontSize={"xl"} my="2">
+              <Text textAlign={"center"} fontSize={"xl"} my="2">
                 Come on, you can do it 🏆💯
               </Text>
             </VStack>

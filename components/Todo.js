@@ -235,7 +235,7 @@ const Todo = ({
       color={"gray.800"}
       position={"relative"}
       bg={myColor}
-      px={8}
+      px={6}
       py={4}
       sx={{
         _hover: {
