@@ -64,7 +64,7 @@ const Navbar = () => {
           alt="logo"
           src="https://printbusiness.co.uk/wp-content/uploads/2021/01/C4.png"
         ></Image>
-        <Heading whiteSpace={"nowrap"} size="md">
+        <Heading whiteSpace={"nowrap"} size={{ base: "sm", md: "md" }}>
           Activity Manager
         </Heading>
       </HStack>

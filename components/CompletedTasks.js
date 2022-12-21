@@ -65,7 +65,7 @@ const CompletedTasks = () => {
       borderLeftWidth={{ base: 0, lg: 1 }}
       ref={drop}
     >
-      <VStack spacing={"10"} px="8" w="full">
+      <VStack px="8" w="full">
         <Heading textAlign={"center"}>
           <Center>Tasks Completed</Center>
         </Heading>

@@ -82,6 +82,7 @@ const CompletedTodo = (props) => {
   return (
     <Tooltip label="I'm Completed🙇✔️" placement="top-start">
       <Box
+        my={"5"}
         p="4"
         borderRadius={"lg"}
         color={"gray.800"}

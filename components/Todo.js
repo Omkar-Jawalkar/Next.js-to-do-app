@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { DeleteIcon, EditIcon, CheckIcon } from "@chakra-ui/icons";
+
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { deleteTodo, checkTodo, updateTodo } from "../slices/todoDataSlice";
@@ -17,6 +18,7 @@ import {
   Code,
   Button,
   VStack,
+  Portal,
   Badge,
   Modal,
   ModalOverlay,
@@ -59,6 +61,13 @@ const Todo = ({
   myColor,
   email,
 }) => {
+  // POrtal useRef
+
+  const ref = useRef();
+
+  useEffect(() => {
+    handlePriority();
+  }, []);
   // Create useState for showModel
 
   // Drag
@@ -219,268 +228,266 @@ const Todo = ({
   };
 
   return (
-    <Tooltip
-      label="Hey, Jus drag me to the Completed tasks after you complete me!😎"
-      placement="top-start"
+    <Box
+      ref={drag}
+      borderRadius="lg"
+      boxShadow={"base"}
+      color={"gray.800"}
+      position={"relative"}
+      bg={myColor}
+      px={8}
+      py={4}
+      sx={{
+        _hover: {
+          boxShadow: "dark-lg",
+        },
+      }}
+      onClick={() => {
+        handlePriority();
+        onShowOpen();
+      }}
+      cursor={"pointer"}
+      id="box"
     >
-      <Box
-        ref={drag}
-        borderRadius="lg"
-        boxShadow={"base"}
-        color={"gray.800"}
-        position={"relative"}
-        bg={myColor}
-        px={8}
-        py={4}
-        sx={{
-          _hover: {
-            boxShadow: "dark-lg",
-          },
-        }}
-        onClick={() => {
-          handlePriority();
-          onShowOpen();
-        }}
-        cursor={"pointer"}
-        id="box"
-      >
+      <HStack>
         <Heading
           overflow={"hidden"}
           whiteSpace={"nowrap"}
           textOverflow={"ellipsis"}
           pb={2}
-          w="40"
+          maxW="40"
           as="h2"
           size="lg"
         >
           {title}
         </Heading>
-        <HStack spacing={3} pos="absolute" top={5} right={24} boxSize={6}>
-          <Tooltip placement="top" label="Complete me 🙋‍♂️">
-            <CheckIcon
-              onClick={(e) => {
-                e.stopPropagation();
-                handleCheck();
-              }}
-              cursor={"pointer"}
-              color={"green.600"}
-              boxSize={6}
-            />
-          </Tooltip>
-          <Tooltip placement="top" label="Edit me ✏️">
-            <EditIcon
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditOpen();
-              }}
-              cursor={"pointer"}
-              color={"purple.600"}
-              boxSize={6}
-            />
-          </Tooltip>
+        <Box pb="1">
+          <LightMode>
+            <Badge mx={"1"} colorScheme={priorityColor}>
+              {priority}
+            </Badge>
+          </LightMode>
+        </Box>
+      </HStack>
+      <HStack spacing={3} pos="absolute" top={5} right={24} boxSize={6}>
+        <Tooltip placement="top" label="Complete me 🙋‍♂️">
+          <CheckIcon
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCheck();
+            }}
+            cursor={"pointer"}
+            color={"green.600"}
+            boxSize={6}
+          />
+        </Tooltip>
+        <Tooltip placement="top" label="Edit me ✏️">
+          <EditIcon
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditOpen();
+            }}
+            cursor={"pointer"}
+            color={"purple.600"}
+            boxSize={6}
+          />
+        </Tooltip>
 
-          <Tooltip placement="top" label="Delete🥺">
-            <DeleteIcon
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDelete();
-              }}
-              cursor={"pointer"}
-              color={"red.500"}
-              boxSize={6}
-            />
-          </Tooltip>
-        </HStack>
-        <Text>{description}</Text>
+        <Tooltip placement="top" label="Delete🥺">
+          <DeleteIcon
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete();
+            }}
+            cursor={"pointer"}
+            color={"red.500"}
+            boxSize={6}
+          />
+        </Tooltip>
+      </HStack>
+      <Text>{description}</Text>
 
-        {/* Model for update */}
+      {/* Model for update */}
 
-        <Modal isOpen={isEditOpen} onClose={onEditClose}>
-          <ModalOverlay />
-          <ModalContent color={"gray.800"} bg={myColor}>
-            <ModalCloseButton />
-            <ModalHeader>Update a task</ModalHeader>
-            <ModalBody>
-              <FormControl>
-                <SimpleGrid spacing={4} columns={2}>
-                  <GridItem colSpan={2}>
-                    <Text mb={2} fontSize={"lg"}>
-                      Title
-                    </Text>
-                    <Input
-                      onChange={(e) => setUpdateTitle(e.target.value)}
-                      variant={"filled"}
-                      required
-                      placeholder="Cook a meal..."
-                      focusBorderColor="none"
-                      bg={inputSelectColor}
-                      sx={{
-                        _hover: { bg: "gray.200" },
-                        _placeholder: { color: "gray.500" },
-                      }}
-                      value={updateTitle}
-                    ></Input>
-                  </GridItem>
-                  <GridItem colSpan={2}>
-                    <Text mb={2} fontSize={"lg"}>
-                      Description
-                    </Text>
-                    <Textarea
-                      onChange={(e) => setUpdateDescription(e.target.value)}
-                      variant={"filled"}
-                      placeholder="Watch a cooking video..."
-                      focusBorderColor="none"
-                      bg={inputSelectColor}
-                      sx={{
-                        _hover: { bg: "gray.200" },
-                        _placeholder: { color: "gray.500" },
-                      }}
-                      value={updateDescription}
-                    ></Textarea>
-                  </GridItem>
-                  <GridItem colSpan={1}>
-                    <Text mb={2} fontSize={"lg"}>
-                      Priority
-                    </Text>
-                    <Select
-                      onChange={(e) => setUpdatePriority(e.target.value)}
-                      bg={inputSelectColor}
-                      focusBorderColor="none"
-                      variant={"filled"}
-                      value={updatePriority}
-                    >
-                      <option
-                        style={{ backgroundColor: "white" }}
-                        value="Urgent"
-                      >
-                        Urgent
-                      </option>
-                      <option
-                        style={{ backgroundColor: "white" }}
-                        bg={inputSelectColor}
-                        value="Necessary"
-                      >
-                        Necessary
-                      </option>
-                      <option
-                        style={{ backgroundColor: "white" }}
-                        bg={inputSelectColor}
-                        value="Chill"
-                      >
-                        Chill
-                      </option>
-                    </Select>
-                  </GridItem>
-                  <GridItem colSpan={1}>
-                    <Text mb={2} fontSize={"lg"}>
-                      Status
-                    </Text>
-                    <Select
-                      bg={inputSelectColor}
-                      focusBorderColor="none"
-                      variant={"filled"}
-                      onChange={(e) => setUpdateStatus(e.target.value)}
-                      value={updateStatus}
-                    >
-                      <option
-                        style={{ backgroundColor: "white" }}
-                        value="Beginning"
-                      >
-                        Beginning
-                      </option>
-                      <option
-                        style={{ backgroundColor: "white" }}
-                        value="Half Way"
-                      >
-                        Half Way
-                      </option>
-                      <option
-                        style={{ backgroundColor: "white" }}
-                        value="At the End"
-                      >
-                        At the End
-                      </option>
-                    </Select>
-                  </GridItem>
-                </SimpleGrid>
-                <HStack
-                  spacing={5}
-                  justify={"center"}
-                  alignItems="center"
-                  py="8"
-                >
-                  <Button
-                    onClick={() => {
-                      onEditClose();
+      <Modal isOpen={isEditOpen} onClose={onEditClose}>
+        <ModalOverlay />
+        <ModalContent color={"gray.800"} bg={myColor}>
+          <ModalCloseButton />
+          <ModalHeader>Update a task</ModalHeader>
+          <ModalBody>
+            <FormControl>
+              <SimpleGrid spacing={4} columns={2}>
+                <GridItem colSpan={2}>
+                  <Text mb={2} fontSize={"lg"}>
+                    Title
+                  </Text>
+                  <Input
+                    onChange={(e) => setUpdateTitle(e.target.value)}
+                    variant={"filled"}
+                    required
+                    placeholder="Cook a meal..."
+                    focusBorderColor="none"
+                    bg={inputSelectColor}
+                    sx={{
+                      _hover: { bg: "gray.200" },
+                      _placeholder: { color: "gray.500" },
                     }}
-                    bg={"red.500"}
+                    value={updateTitle}
+                  ></Input>
+                </GridItem>
+                <GridItem colSpan={2}>
+                  <Text mb={2} fontSize={"lg"}>
+                    Description
+                  </Text>
+                  <Textarea
+                    onChange={(e) => setUpdateDescription(e.target.value)}
+                    variant={"filled"}
+                    placeholder="Watch a cooking video..."
+                    focusBorderColor="none"
+                    bg={inputSelectColor}
+                    sx={{
+                      _hover: { bg: "gray.200" },
+                      _placeholder: { color: "gray.500" },
+                    }}
+                    value={updateDescription}
+                  ></Textarea>
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <Text mb={2} fontSize={"lg"}>
+                    Priority
+                  </Text>
+                  <Select
+                    onChange={(e) => setUpdatePriority(e.target.value)}
+                    bg={inputSelectColor}
+                    focusBorderColor="none"
+                    variant={"filled"}
+                    value={updatePriority}
                   >
-                    Cancel
-                  </Button>
-                  <Button onClick={handleUpdate} bg={"blue.500"}>
-                    Update{" "}
-                    {spinnerState && (
-                      <Spinner
-                        ml={2}
-                        thickness="1px"
-                        speed="0.65s"
-                        emptyColor="gray.200"
-                        size="sm"
-                      />
-                    )}
-                  </Button>
-                </HStack>
-              </FormControl>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-
-        {/* SHow todo modal */}
-        <Modal isCentered isOpen={isShowOpen} onClose={onShowClose}>
-          <ModalOverlay />
-          <ModalContent
-            sx={{ wordBreak: "breakWord" }}
-            color={"gray.900"}
-            bg={myColor}
-          >
-            <ModalHeader
-              sx={{
-                width: "700ppx",
-                whiteSpace: "normal",
-                wordBreak: "break-word",
-              }}
-            >
-              <HStack alignItems={"center"}>
-                {" "}
-                <Heading>{title}</Heading>{" "}
-                <Box m="0">
-                  <LightMode>
-                    <Badge mx={"1"} colorScheme={priorityColor}>
-                      {priority}
-                    </Badge>
-                  </LightMode>
-                </Box>
+                    <option style={{ backgroundColor: "white" }} value="Urgent">
+                      Urgent
+                    </option>
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      bg={inputSelectColor}
+                      value="Necessary"
+                    >
+                      Necessary
+                    </option>
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      bg={inputSelectColor}
+                      value="Chill"
+                    >
+                      Chill
+                    </option>
+                  </Select>
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <Text mb={2} fontSize={"lg"}>
+                    Status
+                  </Text>
+                  <Select
+                    bg={inputSelectColor}
+                    focusBorderColor="none"
+                    variant={"filled"}
+                    onChange={(e) => setUpdateStatus(e.target.value)}
+                    value={updateStatus}
+                  >
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      value="Beginning"
+                    >
+                      Beginning
+                    </option>
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      value="Half Way"
+                    >
+                      Half Way
+                    </option>
+                    <option
+                      style={{ backgroundColor: "white" }}
+                      value="At the End"
+                    >
+                      At the End
+                    </option>
+                  </Select>
+                </GridItem>
+              </SimpleGrid>
+              <HStack spacing={5} justify={"center"} alignItems="center" py="8">
+                <Button
+                  onClick={() => {
+                    onEditClose();
+                  }}
+                  bg={"red.500"}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={handleUpdate} bg={"blue.500"}>
+                  Update{" "}
+                  {spinnerState && (
+                    <Spinner
+                      ml={2}
+                      thickness="1px"
+                      speed="0.65s"
+                      emptyColor="gray.200"
+                      size="sm"
+                    />
+                  )}
+                </Button>
               </HStack>
-            </ModalHeader>
+            </FormControl>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
 
-            <ModalCloseButton />
-            <ModalBody>
-              <Text fontSize={"lg"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam quia, voluptatum, quod, voluptates quae voluptatibus
-                quas
-              </Text>
-            </ModalBody>
+      {/* SHow todo modal */}
 
-            <ModalFooter>
-              <Code color={statusColor} fontSize={"lg"} bg={statusbg}>
-                Status : {status}
-              </Code>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Box>
-    </Tooltip>
+      <Modal isCentered isOpen={isShowOpen} onClose={onShowClose}>
+        <ModalOverlay />
+
+        <ModalContent
+          zIndex={"10000"}
+          sx={{ wordBreak: "breakWord" }}
+          color={"gray.900"}
+          bg={myColor}
+        >
+          <ModalHeader
+            sx={{
+              width: "700ppx",
+              whiteSpace: "normal",
+              wordBreak: "break-word",
+            }}
+          >
+            <HStack alignItems={"center"}>
+              {" "}
+              <Heading>{title}</Heading>{" "}
+              <Box m="0">
+                <LightMode>
+                  <Badge mx={"1"} colorScheme={priorityColor}>
+                    {priority}
+                  </Badge>
+                </LightMode>
+              </Box>
+            </HStack>
+          </ModalHeader>
+
+          <ModalCloseButton />
+          <ModalBody>
+            <Text fontSize={"lg"}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+              quia, voluptatum, quod, voluptates quae voluptatibus quas
+            </Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Code color={statusColor} fontSize={"lg"} bg={statusbg}>
+              Status : {status}
+            </Code>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </Box>
   );
 };
 
