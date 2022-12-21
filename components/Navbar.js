@@ -21,6 +21,7 @@ import {
   VStack,
   Box,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import {
   SunIcon,
   HamburgerIcon,
@@ -28,8 +29,13 @@ import {
   MoonIcon,
 } from "@chakra-ui/icons";
 import { AiOutlineMenu } from "react-icons/ai";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
+  // get redux data
+  const todoData = useSelector((state) => state.todoData.value);
+  const result = todoData.filter((todo) => todo.completeStatus !== true);
+
   const btnRef = useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
@@ -55,6 +61,7 @@ const Navbar = () => {
       justifyContent="space-between"
       boxShadow={"2xl"}
       itemsAlign="start"
+      maxH={"62px"}
     >
       {/* This is logo image */}
       <HStack>
@@ -70,26 +77,7 @@ const Navbar = () => {
       </HStack>
 
       <FormControl display={{ base: "none", md: "block" }} px="16" flex="2">
-        <HStack spacing="0px">
-          <Input
-            bgGradient="linear(to-l, #7928CA, #FF0080)"
-            mr="0px"
-            // borderRightRadius={0}
-            placeholder="search"
-            sx={{
-              _placeholder: { color: "white" },
-              _active: {
-                outline: "none",
-              },
-            }}
-            type="search"
-          />
-
-          {/* Search Button */}
-          {/* <Button borderLeftRadius={0} ml="0px">
-            <Search2Icon />
-          </Button>{" "} */}
-        </HStack>
+        <SearchBar placeholder={"Search a task"} data={result} />
       </FormControl>
 
       <HStack justifyContent="start">

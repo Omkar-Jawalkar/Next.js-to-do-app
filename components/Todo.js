@@ -474,10 +474,7 @@ const Todo = ({
 
           <ModalCloseButton />
           <ModalBody>
-            <Text fontSize={"lg"}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              quia, voluptatum, quod, voluptates quae voluptatibus quas
-            </Text>
+            <Text fontSize={"lg"}>{description}</Text>
           </ModalBody>
 
           <ModalFooter>
