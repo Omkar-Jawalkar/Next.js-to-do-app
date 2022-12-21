@@ -72,6 +72,7 @@ const SearchBar = ({ placeholder, data }) => {
       >
         {filterData.map((item) => (
           <Box
+            key={item.id}
             h={"50px"}
             justifyContent="center"
             alignItems="center"
