@@ -255,7 +255,7 @@ const Todo = ({
           whiteSpace={"nowrap"}
           textOverflow={"ellipsis"}
           pb={2}
-          maxW="40"
+          maxW={{ base: "20", md: "40", lg: "40", xl: "40" }}
           as="h2"
           size="lg"
         >
