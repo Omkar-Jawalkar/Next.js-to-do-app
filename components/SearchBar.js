@@ -19,9 +19,12 @@ import {
   Badge,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import React, { useState } from "react";
 
-const SearchBar = ({ placeholder, data }) => {
+const SearchBar = ({ placeholder }) => {
+  const todoData = useSelector((state) => state.todoData.value);
+  const result = todoData.filter((todo) => todo.completeStatus !== true);
   const {
     isOpen: isShowOpen,
     onOpen: onShowOpen,
@@ -50,7 +53,7 @@ const SearchBar = ({ placeholder, data }) => {
         onChange={(e) => {
           const keyword = e.target.value;
           if (keyword !== "") {
-            const results = data.filter((data) =>
+            const results = result.filter((data) =>
               data.title.toLowerCase().includes(keyword.toLowerCase())
             );
             setFilterData(results);

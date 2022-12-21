@@ -33,13 +33,12 @@ import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   // get redux data
-  const todoData = useSelector((state) => state.todoData.value);
-  const result = todoData.filter((todo) => todo.completeStatus !== true);
 
   const btnRef = useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const { data: session } = useSession();
+
   const [defaultImage, setDefaultImage] = useState(
     "https://printbusiness.co.uk/wp-content/uploads/2021/01/C4.png"
   );
@@ -77,7 +76,7 @@ const Navbar = () => {
       </HStack>
 
       <FormControl display={{ base: "none", md: "block" }} px="16" flex="2">
-        <SearchBar placeholder={"Search a task"} data={result} />
+        {session && <SearchBar placeholder={"Search a task"} />}
       </FormControl>
 
       <HStack justifyContent="start">
