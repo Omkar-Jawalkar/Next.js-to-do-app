@@ -195,7 +195,7 @@ const AddButton = () => {
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent color={"gray.800"} bg={myColor}>
+        <ModalContent zIndex={"5000"} color={"gray.800"} bg={myColor}>
           <ModalCloseButton />
           <ModalHeader>Add a task</ModalHeader>
           <ModalBody>
