@@ -117,9 +117,9 @@ const SearchBar = ({ placeholder }) => {
 
               <ModalContent
                 sx={{
+                  wordBreak: "breakWord",
                   zIndex: 10,
                 }}
-                sx={{ wordBreak: "breakWord" }}
                 color={"gray.900"}
                 bg={item.myColor}
               >
