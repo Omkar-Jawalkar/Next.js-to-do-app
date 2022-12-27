@@ -69,8 +69,10 @@ const SearchBar = ({ placeholder }) => {
         maxH={"200px"}
         textColor={"black"}
         w={"full"}
+        sx={{
+          zIndex: 2,
+        }}
         bg="whiteAlpha.900"
-        zIndex={"4000"}
         borderRadius="lg"
       >
         {filterData.map((item) => (
@@ -114,7 +116,9 @@ const SearchBar = ({ placeholder }) => {
               <ModalOverlay />
 
               <ModalContent
-                zIndex={"10000"}
+                sx={{
+                  zIndex: 10,
+                }}
                 sx={{ wordBreak: "breakWord" }}
                 color={"gray.900"}
                 bg={item.myColor}

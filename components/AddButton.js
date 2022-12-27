@@ -186,6 +186,9 @@ const AddButton = () => {
         boxShadow="dark-lg"
         textAlign="center"
         onClick={addTask}
+        sx={{
+          zIndex: 1,
+        }}
       >
         {" "}
         <VStack spacing="7">
