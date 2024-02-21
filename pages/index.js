@@ -1,20 +1,19 @@
-import { Box, Container, Divider, Flex, VStack } from "@chakra-ui/react";
+import { Box, Container, Divider } from "@chakra-ui/react";
+import { collection, getDocs } from "firebase/firestore";
+import { getSession } from "next-auth/react";
 import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { getSession } from "next-auth/react";
-import db from "../firebase/clientApp";
+import { useDispatch } from "react-redux";
 import AddButton from "../components/AddButton";
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import CompletedTasks from "../components/CompletedTasks";
 import Footer from "../components/Footer";
-import { useDispatch, useSelector } from "react-redux";
-import { initializeTodo } from "../slices/todoDataSlice";
+import Navbar from "../components/Navbar";
+import db from "../firebase/clientApp";
+
 import { useSession } from "next-auth/react";
-import Signin from "../components/Signin";
 import CombineComponent from "../components/CombineComponent";
+import Signin from "../components/Signin";
+import { initializeTodo } from "../slices/todoDataSlice";
 
 export default function Home({ todos }) {
   const { data: session } = useSession();
