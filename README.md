@@ -1,34 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Activity Manager 🗓️
 
-## Getting Started
+Welcome to the Activity Manager app! This application allows you to effortlessly manage your daily tasks and activities. Built with React, Firebase, Next-Auth, and Next.js, this app offers a seamless user experience and robust functionality.
 
-First, run the development server:
+## Usage 
 
+
+https://github.com/Omkar-Jawalkar/Next.js-to-do-app/assets/82781128/3bb02ce0-1645-4189-a83c-f04479eea210
+
+
+## Features ✨
+
+- **Create Tasks 📝**: Easily add new tasks with a description, due date, and priority level.
+- **Update Tasks 🔄**: Modify existing tasks by editing their details or marking them as complete.
+- **Delete Tasks ❌**: Remove tasks that are no longer relevant or have been completed.
+- **Prioritize Tasks 🚀**: Arrange your tasks based on their priority level to stay focused on the most important activities.
+- **Authentication 🔐**: Secure access to your tasks with Next-Auth integration, ensuring data privacy and personalization.
+- **Real-time Updates 🔄**: Enjoy real-time synchronization of your tasks across devices, powered by Firebase.
+
+## Getting Started 🚀
+
+To get started with the Activity Manager app, follow these steps:
+
+1. **Clone the Repository**
+  ```bash
+  git clone https://github.com/your-username/activity-manager.git
+  ```
+
+2. **Install Dependencies**
 ```bash
-npm run dev
-# or
-yarn dev
+  cd activity-manager
+  npm install
 ```
+3. **Configure Firebase**
+  
+   -  Create a new Firebase project and enable the Firestore Database and Authentication services.
+   -  Copy the Firebase configuration details (API key, project ID, etc.) and paste them into           the .env.local file.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   
+4. **Configure Next-Auth**
+   
+   - Follow the Next-Auth documentation to set up the authentication providers you want to use (e.g., Google, GitHub, etc.).
+   - Update the next-auth.config.js file with your provider configurations.
+   
+  
+5. **Start the Development Server**
+   ```bash
+    npm run dev
+   ```
+   
+6. **Open the App**  Visit http://localhost:3000 in your web browser to access the Activity Manager app.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+##Contributing 👥
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+We welcome contributions from the community! If you'd like to contribute to the Activity Manager app, please go ahead!! 🤝
 
-## Learn More
+##Acknowledgements 🙏
 
-To learn more about Next.js, take a look at the following resources:
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [Next.js](https://nextjs.org/) - A React framework for production
+- [Firebase](https://firebase.google.com/) - A comprehensive app development platform
+- [Next-Auth](https://next-auth.js.org/) - Authentication for Next.js
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Feel free to explore the Activity Manager app and let us know if you have any questions or suggestions! Happy task managing! 🎉
+   
