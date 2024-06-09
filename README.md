@@ -34,12 +34,12 @@ To get started with the Activity Manager app, follow these steps:
 3. **Configure Firebase**
   
    -  Create a new Firebase project and enable the Firestore Database and Authentication services.
-   -  Copy the Firebase configuration details (API key, project ID, etc.) and paste them into           the .env.local file.
+   -  Copy the Firebase configuration details (API key, project ID, etc.) and paste them into           the `.env.local` file.
 
    
 4. **Configure Next-Auth**
    
-   - Follow the Next-Auth documentation to set up the authentication providers you want to use (e.g., Google, GitHub, etc.).
+   - Follow the Next-Auth documentation to set up the authentication providers you want to use (e.g.,`Google`, `GitHub`, etc.).
    - Update the next-auth.config.js file with your provider configurations.
    
   
