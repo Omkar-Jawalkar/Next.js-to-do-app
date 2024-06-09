@@ -51,11 +51,11 @@ To get started with the Activity Manager app, follow these steps:
 6. **Open the App**  Visit http://localhost:3000 in your web browser to access the Activity Manager app.
 
 
-##Contributing 👥
+## Contributing 👥
 
 We welcome contributions from the community! If you'd like to contribute to the Activity Manager app, please go ahead!! 🤝
 
-##Acknowledgements 🙏
+## Acknowledgements 🙏
 
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces
 - [Next.js](https://nextjs.org/) - A React framework for production
