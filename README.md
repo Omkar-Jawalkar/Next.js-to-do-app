@@ -31,10 +31,23 @@ To get started with the Activity Manager app, follow these steps:
   cd activity-manager
   npm install
 ```
+OR
+
+  **Docker Commands**
+
+> Before running docker, make sure to have a .env file with next-auth GOOGLE_ID and GOOGLE_SECRET configuration
+
+```bash
+cd activity-manager
+docker build -t activity-manager .
+docker run --env-file .env -p 3000:3000 activity-manager
+```
+
+
 3. **Configure Firebase**
   
    -  Create a new Firebase project and enable the Firestore Database and Authentication services.
-   -  Copy the Firebase configuration details (API key, project ID, etc.) and paste them into           the `.env.local` file.
+   -  Copy the Firebase configuration details (API key, project ID, etc.) and paste them into           the `.env` file.
 
    
 4. **Configure Next-Auth**
